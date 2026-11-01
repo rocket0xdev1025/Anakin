@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anakin Skywalker ($ANAKIN)</title>
+  <meta name="description" content="Anakin Skywalker ($ANAKIN). Anger clips mock Jedi elites. The charges were love, family, patterns, and more. Long live the Empire." />
+  <meta name="theme-color" content="#140403" />
+  <meta property="og:title" content="Anakin Skywalker ($ANAKIN)" />
+  <meta property="og:description" content="Anger clips mock Jedi elites. Love, family, patterns, and more. Long live the Empire." />
+  <meta property="og:image" content="banner.png" />
+  <link rel="icon" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#140403",
+            lava: "#ff4d1c",
+            ember: "#ff8a3d",
+            eye: "#ffe56a",
+            ash: "#f6eadc",
+            blood: "#8f1518"
+          },
+          fontFamily: {
+            display: ["Cinzel", "Palatino Linotype", "serif"],
+            sans: ["Outfit", "Segoe UI", "sans-serif"],
+            label: ["Rajdhani", "Segoe UI", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root { color-scheme: dark; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0c0201;
+      font-family: Outfit, "Segoe UI", sans-serif;
+    }
+    ::selection { background: #ff4d1c; color: #1a0503; }
+    :focus-visible { outline: 2px solid #ffe56a; outline-offset: 3px; }
+    .lift { text-shadow: 0 2px 16px rgba(8, 1, 0, 0.9); }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #140403; }
+    ::-webkit-scrollbar-thumb { background: #8a2a16; border-radius: 99px; }
+
+    .heat {
+      background: linear-gradient(100deg, #ffe56a, #ffb15a 28%, #ff4d1c 62%, #ffe56a);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: heat 9s linear infinite;
+    }
+    @keyframes heat { to { background-position: 200% center; } }
+
+    .drift { animation: drift 36s ease-in-out infinite alternate; }
+    @keyframes drift {
+      from { transform: scale(1.06) translate3d(0, 0, 0); }
+      to { transform: scale(1.16) translate3d(-2%, -1.2%, 0); }
+    }
+
+    .eyes { display: inline-flex; gap: 5px; align-items: center; }
+    .eyes i {
+      display: block;
+      width: 13px;
+      height: 5px;
+      border-radius: 999px;
+      background: #ffe56a;
+      box-shadow: 0 0 10px 2px rgba(255, 229, 106, 0.85);
+    }
+    .eyes i:first-child { transform: rotate(-12deg); }
+    .eyes i:last-child { transform: rotate(12deg); }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 46s linear infinite;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+
+    .ember {
+      position: absolute;
+      bottom: -12px;
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: #ff8a3d;
+      box-shadow: 0 0 10px 3px rgba(255, 77, 28, 0.85);
+      animation: rise linear infinite;
+      opacity: 0;
+    }
+    .ember:nth-child(3n) {
+      background: #ffe56a;
+      box-shadow: 0 0 12px 3px rgba(255, 229, 106, 0.8);
+    }
+    @keyframes rise {
+      0% { transform: translate3d(0, 12px, 0) scale(1); opacity: 0; }
+      12% { opacity: 0.9; }
+      100% { transform: translate3d(18px, -105vh, 0) scale(0.35); opacity: 0; }
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    .frame { position: relative; }
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .frame::before {
+      top: 10px;
+      left: 10px;
+      border-top: 2px solid #ffe56a;
+      border-left: 2px solid #ffe56a;
+    }
+    .frame::after {
+      right: 10px;
+      bottom: 10px;
+      border-right: 2px solid #ffe56a;
+      border-bottom: 2px solid #ffe56a;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .heat, .drift, .ticker-track, .ember { animation: none !important; }
+      .ember { display: none; }
+      .ticker-track { width: auto; flex-wrap: wrap; justify-content: center; }
+      .ticker-track [aria-hidden="true"] { display: none; }
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden bg-ink pb-24 text-ash antialiased sm:pb-0">
+  <!-- Background: Anakin banner in a slow move, Mustafar ember video, logo color grade. -->
+  <div class="pointer-events-none fixed inset-0 -z-10 isolate overflow-hidden bg-ink" aria-hidden="true">
+    <img src="banner.png" alt="" class="drift absolute inset-0 h-full w-full object-cover object-[center_30%] md:object-[58%_center]" />
+    <div class="absolute inset-0 bg-[#9a1c10] opacity-45 mix-blend-color"></div>
+    <video class="absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-screen" autoplay muted loop playsinline preload="auto">
+      <source src="embers.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/45 to-[#0c0201]/95"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(12,2,1,0.45)_82%)]"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/88 via-ink/35 to-transparent"></div>
+    <span class="ember" style="left:6%;animation-duration:15s;animation-delay:-3s"></span>
+    <span class="ember" style="left:14%;animation-duration:18s;animation-delay:-8s;width:2px;height:2px"></span>
+    <span class="ember" style="left:23%;animation-duration:12s;animation-delay:-1s"></span>
+    <span class="ember" style="left:31%;animation-duration:20s;animation-delay:-11s"></span>
+    <span class="ember" style="left:42%;animation-duration:16s;animation-delay:-6s;width:4px;height:4px"></span>
+    <span class="ember" style="left:53%;animation-duration:13s;animation-delay:-4s"></span>
+    <span class="ember" style="left:61%;animation-duration:19s;animation-delay:-9s"></span>
+    <span class="ember" style="left:70%;animation-duration:14s;animation-delay:-2s;width:2px;height:2px"></span>
+    <span class="ember" style="left:78%;animation-duration:17s;animation-delay:-12s"></span>
+    <span class="ember" style="left:87%;animation-duration:11s;animation-delay:-5s"></span>
+    <span class="ember" style="left:94%;animation-duration:21s;animation-delay:-7s"></span>
+    <div class="grain"></div>
+  </div>
+
+  <p class="spine pointer-events-none fixed bottom-10 left-3 z-20 hidden font-label text-[11px] font-semibold uppercase tracking-[0.42em] text-eye/80 min-[1400px]:block" style="writing-mode:vertical-rl;transform:rotate(180deg)">
+    Long live the Empire
+  </p>
+
+  <header class="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-ink/60 backdrop-blur-md">
+    <div class="mx-auto flex h-[4.25rem] max-w-6xl items-center gap-3 px-4 sm:px-6">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="logo.png" alt="" class="h-10 w-10 rounded-full object-cover ring-1 ring-eye/70" />
+        <span class="leading-none">
+          <span class="block font-display text-[13px] tracking-wide text-ash sm:text-sm">Anakin Skywalker</span>
+          <span class="mt-1 block font-label text-[11px] font-semibold tracking-[0.28em] text-eye">$ANAKIN</span>
+        </span>
+      </a>
+      <nav class="ml-6 hidden items-center gap-6 md:flex" aria-label="Page">
+        <a href="#charges" class="font-label text-sm font-semibold uppercase tracking-[0.16em] text-ash/75 transition hover:text-eye">Charges</a>
+        <a href="#buy" class="font-label text-sm font-semibold uppercase tracking-[0.16em] text-ash/75 transition hover:text-eye">How to Buy</a>
+        <a href="#chart" class="font-label text-sm font-semibold uppercase tracking-[0.16em] text-ash/75 transition hover:text-eye">Chart</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a href="https://t.me/gatothecat" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="block h-10 w-10 overflow-hidden rounded-full ring-1 ring-white/25 transition hover:ring-eye">
+          <img src="tg.png" alt="" class="h-full w-full object-cover" />
+        </a>
+        <a href="https://x.com/anakinhood" target="_blank" rel="noopener noreferrer" aria-label="X" class="block h-10 w-10 overflow-hidden rounded-lg ring-1 ring-white/25 transition hover:ring-eye">
+          <img src="x.png" alt="" class="h-full w-full object-cover" />
+        </a>
+        <a href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer" class="ml-1 hidden h-10 items-center rounded-full bg-gradient-to-b from-ember to-[#c42316] px-4 font-label text-sm font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_28px_rgba(255,77,28,0.35)] transition hover:brightness-110 sm:inline-flex">
+          Buy Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-28 pt-28 sm:px-6 sm:pb-16 lg:min-h-[100svh] lg:grid-cols-12 lg:gap-10 lg:pt-32">
+      <div class="pointer-events-none absolute -left-10 top-28 h-24 w-2/3 -rotate-6 bg-gradient-to-r from-transparent via-lava/25 to-transparent blur-2xl" aria-hidden="true"></div>
+      <div class="relative order-2 lg:order-1 lg:col-span-7">
+        <p class="flex items-center gap-3 font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye sm:text-sm">
+          <span class="eyes" aria-hidden="true"><i></i><i></i></span>
+          Gen Z · Chosen One
+        </p>
+        <h1 class="lift mt-4 font-display text-6xl font-bold leading-[0.86] text-ash sm:text-7xl lg:text-8xl">
+          Anakin<br />
+          <span class="heat">Skywalker</span>
+        </h1>
+        <p class="mt-5 inline-flex items-center rounded-full border border-eye/40 bg-black/35 px-3 py-1 font-label text-sm font-bold tracking-[0.28em] text-eye">
+          $ANAKIN
+        </p>
+        <p class="lift mt-6 max-w-xl text-lg font-light leading-relaxed text-ash sm:text-xl">
+          Anger clips, played over Jedi elites. The charge sheet was love, family, patterns, and more.
+        </p>
+        <p class="lift mt-3 max-w-xl text-base leading-relaxed text-ash/85">
+          He would not go numb on command. Gen Z kept every frame. Long live the Empire.
+        </p>
+
+        <div class="mt-8 flex max-w-xl flex-col gap-3 rounded-2xl border border-white/10 bg-black/45 p-3 backdrop-blur-md sm:flex-row sm:items-center">
+          <div class="min-w-0 flex-1 px-2">
+            <p class="font-label text-[11px] font-semibold tracking-[0.24em] text-eye">CONTRACT</p>
+            <p class="js-ca mt-0.5 break-all font-mono text-sm text-ash sm:text-base">TBA</p>
+          </div>
+          <button type="button" data-copy-ca class="inline-flex h-11 shrink-0 items-center justify-center rounded-xl bg-eye px-5 font-label text-base font-bold uppercase tracking-[0.14em] text-ink transition hover:bg-white">
+            <span data-label>Copy</span>
+          </button>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <a href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-b from-ember to-[#c42316] px-7 font-label text-lg font-bold uppercase tracking-[0.14em] text-white shadow-[0_12px_40px_rgba(255,77,28,0.38)] transition hover:brightness-110 active:scale-[0.98]">
+            Buy Now
+          </a>
+          <a href="https://dexscreener.com/ethereum/TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 items-center justify-center rounded-full border border-eye/50 bg-black/35 px-7 font-label text-lg font-bold uppercase tracking-[0.14em] text-eye backdrop-blur transition hover:bg-eye hover:text-ink active:scale-[0.98]">
+            Chart
+          </a>
+          <a href="https://t.me/gatothecat" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="ml-1 h-12 w-12 overflow-hidden rounded-full ring-1 ring-white/20 transition hover:ring-eye">
+            <img src="tg.png" alt="" class="h-full w-full object-cover" />
+          </a>
+          <a href="https://x.com/anakinhood" target="_blank" rel="noopener noreferrer" aria-label="X" class="h-12 w-12 overflow-hidden rounded-xl ring-1 ring-white/20 transition hover:ring-eye">
+            <img src="x.png" alt="" class="h-full w-full object-cover" />
+          </a>
+        </div>
+      </div>
+
+      <div class="relative order-1 lg:order-2 lg:col-span-5">
+        <div class="frame relative mx-auto w-full max-w-md">
+          <div class="absolute left-1/2 top-[36%] h-20 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-eye/70 blur-3xl" aria-hidden="true"></div>
+          <img src="logo.png" alt="Anakin Skywalker, gold eyes in the red dark" class="relative h-72 w-full rounded-2xl object-cover object-[center_22%] shadow-[0_30px_90px_rgba(255,60,20,0.35)] ring-1 ring-ember/50 sm:h-96 lg:aspect-[4/5] lg:h-auto" />
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker overflow-hidden border-y border-white/10 bg-black/50 py-3 backdrop-blur-sm">
+      <div class="ticker-track font-label text-sm font-semibold uppercase tracking-[0.28em] text-ash">
+        <div class="flex shrink-0 items-center">
+          <span class="px-5">Long live the Empire</span><span class="text-eye">/</span>
+          <span class="px-5">$ANAKIN</span><span class="text-eye">/</span>
+          <span class="px-5">Love was the charge</span><span class="text-eye">/</span>
+          <span class="px-5">Family was on the list</span><span class="text-eye">/</span>
+          <span class="px-5">He saw the pattern</span><span class="text-eye">/</span>
+          <span class="px-5">Anger clips</span><span class="text-eye">/</span>
+          <span class="px-5">Jedi elites</span><span class="text-eye">/</span>
+          <span class="px-5">Gen Z chosen one</span><span class="text-eye">/</span>
+          <span class="px-5">Robinhood ETH</span><span class="text-eye">/</span>
+        </div>
+        <div class="flex shrink-0 items-center" aria-hidden="true">
+          <span class="px-5">Long live the Empire</span><span class="text-eye">/</span>
+          <span class="px-5">$ANAKIN</span><span class="text-eye">/</span>
+          <span class="px-5">Love was the charge</span><span class="text-eye">/</span>
+          <span class="px-5">Family was on the list</span><span class="text-eye">/</span>
+          <span class="px-5">He saw the pattern</span><span class="text-eye">/</span>
+          <span class="px-5">Anger clips</span><span class="text-eye">/</span>
+          <span class="px-5">Jedi elites</span><span class="text-eye">/</span>
+          <span class="px-5">Gen Z chosen one</span><span class="text-eye">/</span>
+          <span class="px-5">Robinhood ETH</span><span class="text-eye">/</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20" aria-labelledby="record-title">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye">The record</p>
+          <h2 id="record-title" class="mt-2 font-display text-3xl text-ash sm:text-5xl">The clips they argued with</h2>
+        </div>
+        <p class="max-w-sm text-sm leading-relaxed text-ash/70">From the desert to the lava. Same face. The elites heard a confession. Gen Z heard a rebuttal.</p>
+      </div>
+      <figure class="overflow-hidden rounded-2xl border border-lava/35 bg-black shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+        <img src="banner.png" alt="Anakin Skywalker across the desert, the temple, the duel, and Mustafar" class="w-full" />
+        <figcaption class="flex flex-wrap items-center justify-between gap-2 bg-black/75 px-4 py-3 font-label text-xs font-semibold uppercase tracking-[0.2em] text-ash/80 sm:text-sm">
+          <span>Tatooine · Temple · Mustafar</span>
+          <span class="text-eye">Long live the Empire</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="charges" class="scroll-mt-24 mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-8" aria-labelledby="charges-title">
+      <p class="font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye">The indictment</p>
+      <h2 id="charges-title" class="mt-2 max-w-3xl font-display text-4xl leading-tight text-ash sm:text-6xl">The “crimes”</h2>
+      <p class="mt-4 max-w-2xl text-lg font-light leading-relaxed text-ash/80">
+        Jedi elites read the list like a verdict. The anger clips talk over them. Four counts. Gen Z already knows the punchlines.
+      </p>
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        <article class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-lava/55">
+          <p class="font-label text-sm font-semibold tracking-[0.22em] text-eye">01 · LOVE</p>
+          <h3 class="mt-3 font-display text-3xl text-ash">Loved on purpose</h3>
+          <p class="mt-3 leading-relaxed text-ash/75">Attachment, they wrote, like it was a stain. He loved someone in a building that files love under contraband. That is count one.</p>
+        </article>
+        <article class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-lava/55">
+          <p class="font-label text-sm font-semibold tracking-[0.22em] text-eye">02 · FAMILY</p>
+          <h3 class="mt-3 font-display text-3xl text-ash">Family on the docket</h3>
+          <p class="mt-3 leading-relaxed text-ash/75">His mother. The life waiting after the war. Family sat on the same page as treason. The clips still say their names.</p>
+        </article>
+        <article class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-lava/55">
+          <p class="font-label text-sm font-semibold tracking-[0.22em] text-eye">03 · PATTERNS</p>
+          <h3 class="mt-3 font-display text-3xl text-ash">He saw the pattern</h3>
+          <p class="mt-3 leading-relaxed text-ash/75">The Order was already cracking. He named the shape of it out loud. Pattern recognition, entered into evidence by elites who preferred the fog.</p>
+        </article>
+        <article class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-lava/55">
+          <p class="font-label text-sm font-semibold tracking-[0.22em] text-eye">04 · MORE</p>
+          <h3 class="mt-3 font-display text-3xl text-ash">And more</h3>
+          <p class="mt-3 leading-relaxed text-ash/75">Questions. Anger. A spine. The rest of the sheet is a boy who would not stay a polite weapon. Gen Z looped it until the hearing sounded small.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-16 border-y border-lava/25 bg-black/45 py-16 text-center backdrop-blur-sm sm:py-24">
+      <p class="flex items-center justify-center gap-3 font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye">
+        <span class="eyes" aria-hidden="true"><i></i><i></i></span>
+        The line
+      </p>
+      <p class="mt-5 font-display text-5xl leading-[0.95] text-ash sm:text-7xl lg:text-8xl">
+        Long live<br />the Empire.
+      </p>
+      <p class="mx-auto mt-5 max-w-md px-4 text-ash/70">The footage outlasted the council. $ANAKIN is the chorus.</p>
+    </section>
+
+    <section id="buy" class="scroll-mt-24 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="buy-title">
+      <p class="font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye">Robinhood ETH</p>
+      <h2 id="buy-title" class="mt-2 font-display text-4xl text-ash sm:text-6xl">How to buy $ANAKIN</h2>
+      <p class="mt-4 max-w-2xl text-lg font-light leading-relaxed text-ash/80">
+        Four steps. ETH on Robinhood Chain in. $ANAKIN out. The contract reads TBA until it is announced.
+      </p>
+
+      <ol class="mt-10 divide-y divide-lava/25 border-y border-lava/25">
+        <li class="grid gap-4 py-8 md:grid-cols-[6.5rem_1fr] md:gap-8">
+          <p class="font-display text-5xl text-eye">01</p>
+          <div>
+            <h3 class="font-display text-2xl text-ash sm:text-3xl">Get a wallet</h3>
+            <p class="mt-3 max-w-2xl leading-relaxed text-ash/75">
+              Robinhood Wallet already includes Robinhood Chain. MetaMask, Rabby, and any other EVM wallet need the network added once. Use the fields below.
+            </p>
+            <dl class="mt-5 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2">
+              <div class="bg-ink/85 px-4 py-3">
+                <dt class="font-label text-[11px] font-semibold tracking-[0.2em] text-eye">NETWORK</dt>
+                <dd class="mt-1 text-sm text-ash">Robinhood Chain</dd>
+              </div>
+              <div class="bg-ink/85 px-4 py-3">
+                <dt class="font-label text-[11px] font-semibold tracking-[0.2em] text-eye">CHAIN ID</dt>
+                <dd class="mt-1 font-mono text-sm text-ash">4663</dd>
+              </div>
+              <div class="bg-ink/85 px-4 py-3">
+                <dt class="font-label text-[11px] font-semibold tracking-[0.2em] text-eye">RPC</dt>
+                <dd class="mt-1 break-all font-mono text-sm text-ash">https://rpc.mainnet.chain.robinhood.com</dd>
+              </div>
+              <div class="bg-ink/85 px-4 py-3">
+                <dt class="font-label text-[11px] font-semibold tracking-[0.2em] text-eye">SYMBOL · EXPLORER</dt>
+                <dd class="mt-1 text-sm text-ash">
+                  ETH ·
+                  <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener noreferrer" class="text-eye underline decoration-eye/40 underline-offset-2 hover:decoration-eye">blockscout</a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </li>
+        <li class="grid gap-4 py-8 md:grid-cols-[6.5rem_1fr] md:gap-8">
+          <p class="font-display text-5xl text-eye">02</p>
+          <div>
+            <h3 class="font-display text-2xl text-ash sm:text-3xl">Bridge in Robinhood ETH</h3>
+            <p class="mt-3 max-w-2xl leading-relaxed text-ash/75">
+              ETH sitting on Ethereum cannot buy here until it crosses. Bridge it to Robinhood Chain. On the
+              <a href="https://portal.arbitrum.io/" target="_blank" rel="noopener noreferrer" class="text-eye underline decoration-eye/40 underline-offset-2 hover:decoration-eye">Arbitrum portal</a>,
+              set the destination to Robinhood Chain. The canonical deposit usually lands in about ten minutes. Keep extra ETH for gas. That balance is what you spend.
+              <a href="https://docs.robinhood.com/chain/bridging/" target="_blank" rel="noopener noreferrer" class="text-eye underline decoration-eye/40 underline-offset-2 hover:decoration-eye">Robinhood’s bridge notes</a>
+              list faster routes if you want them.
+            </p>
+          </div>
+        </li>
+        <li class="grid gap-4 py-8 md:grid-cols-[6.5rem_1fr] md:gap-8">
+          <p class="font-display text-5xl text-eye">03</p>
+          <div>
+            <h3 class="font-display text-2xl text-ash sm:text-3xl">Open the Uniswap swap</h3>
+            <p class="mt-3 max-w-2xl leading-relaxed text-ash/75">
+              Hit Buy Now. It opens Uniswap on Robinhood Chain with $ANAKIN as the token you receive. Connect the wallet that holds the bridged ETH. The network badge should read Robinhood Chain before you confirm a thing.
+            </p>
+          </div>
+        </li>
+        <li class="grid gap-4 py-8 md:grid-cols-[6.5rem_1fr] md:gap-8">
+          <p class="font-display text-5xl text-eye">04</p>
+          <div>
+            <h3 class="font-display text-2xl text-ash sm:text-3xl">Swap ETH for $ANAKIN</h3>
+            <p class="mt-3 max-w-2xl leading-relaxed text-ash/75">
+              Enter how much Robinhood ETH to sell. Read the price impact. A fresh pool needs enough slippage to land, so start small. Match the token to the contract on this page. It reads <span class="js-ca font-mono text-eye">TBA</span> until the real address is posted. Then confirm. Gas is paid in ETH.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-b from-ember to-[#c42316] px-7 font-label text-lg font-bold uppercase tracking-[0.14em] text-white shadow-[0_12px_40px_rgba(255,77,28,0.38)] transition hover:brightness-110">
+          Buy Now
+        </a>
+        <a href="https://dexscreener.com/ethereum/TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 items-center justify-center rounded-full border border-eye/50 px-7 font-label text-lg font-bold uppercase tracking-[0.14em] text-eye transition hover:bg-eye hover:text-ink">
+          Chart
+        </a>
+      </div>
+    </section>
+
+    <section id="chart" class="scroll-mt-24 mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-28" aria-labelledby="chart-title">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="font-label text-xs font-semibold uppercase tracking-[0.32em] text-eye">The tape</p>
+          <h2 id="chart-title" class="mt-2 font-display text-4xl text-ash sm:text-6xl">Chart</h2>
+        </div>
+        <a href="https://dexscreener.com/ethereum/TBA" target="_blank" rel="noopener noreferrer" class="font-label text-sm font-semibold uppercase tracking-[0.16em] text-eye underline decoration-eye/40 underline-offset-4 hover:decoration-eye">
+          Open Dexscreener
+        </a>
+      </div>
+
+      <div class="mb-4 flex flex-col gap-3 rounded-2xl border border-white/10 bg-black/45 p-3 backdrop-blur-md sm:flex-row sm:items-center">
+        <div class="min-w-0 flex-1 px-2">
+          <p class="font-label text-[11px] font-semibold tracking-[0.24em] text-eye">CONTRACT</p>
+          <p class="js-ca mt-0.5 break-all font-mono text-sm text-ash">TBA</p>
+        </div>
+        <button type="button" data-copy-ca class="inline-flex h-11 items-center justify-center rounded-xl bg-eye px-5 font-label text-base font-bold uppercase tracking-[0.14em] text-ink transition hover:bg-white">
+          <span data-label>Copy</span>
+        </button>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl border border-lava/35 bg-black shadow-[0_20px_70px_rgba(0,0,0,0.4)]">
+        <iframe
+          title="Dexscreener chart for ANAKIN"
+          src="https://dexscreener.com/ethereum/TBA?embed=1&theme=dark&chartTheme=dark&trades=0&info=0&chartLeftToolbar=0"
+          class="h-[440px] w-full sm:h-[600px]"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p class="mt-3 text-sm text-ash/60">Pair is TBA until the pool is live. The embed and the Chart button both use that address.</p>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/50">
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="" class="h-12 w-12 rounded-full object-cover ring-1 ring-eye/60" />
+        <div>
+          <p class="font-display text-lg text-ash">Anakin Skywalker</p>
+          <p class="font-label text-xs font-semibold tracking-[0.24em] text-eye">$ANAKIN</p>
+        </div>
+      </div>
+      <p class="max-w-md text-sm leading-relaxed text-ash/65">
+        Anger clips mock Jedi elites. The “crimes” were love, family, patterns, and more. Long live the Empire. A meme, not a decree, and not financial advice.
+      </p>
+      <div class="flex items-center gap-2">
+        <a href="https://t.me/gatothecat" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="block h-11 w-11 overflow-hidden rounded-full ring-1 ring-white/25 transition hover:ring-eye">
+          <img src="tg.png" alt="" class="h-full w-full object-cover" />
+        </a>
+        <a href="https://x.com/anakinhood" target="_blank" rel="noopener noreferrer" aria-label="X" class="block h-11 w-11 overflow-hidden rounded-lg ring-1 ring-white/25 transition hover:ring-eye">
+          <img src="x.png" alt="" class="h-full w-full object-cover" />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink/92 p-3 backdrop-blur-md sm:hidden">
+    <div class="flex gap-2">
+      <a href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 flex-1 items-center justify-center rounded-full bg-gradient-to-b from-ember to-[#c42316] font-label text-base font-bold uppercase tracking-[0.12em] text-white">
+        Buy Now
+      </a>
+      <a href="https://dexscreener.com/ethereum/TBA" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 flex-1 items-center justify-center rounded-full border border-eye/50 font-label text-base font-bold uppercase tracking-[0.12em] text-eye">
+        Chart
+      </a>
+      <button type="button" data-copy-ca aria-label="Copy contract address" class="inline-flex h-12 w-14 items-center justify-center rounded-full bg-eye font-label text-sm font-bold text-ink">
+        CA
+      </button>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" class="pointer-events-none fixed bottom-24 left-1/2 z-50 -translate-x-1/2 translate-y-2 rounded-full border border-eye/40 bg-ink/95 px-4 py-2 font-label text-sm font-semibold uppercase tracking-[0.16em] text-eye opacity-0 shadow-lg transition duration-200 sm:bottom-6">
+    Contract copied
+  </div>
+
+  <script>
+    (function () {
+      var toast = document.getElementById("toast");
+      var timer = 0;
+
+      function fallbackCopy(value) {
+        var area = document.createElement("textarea");
+        area.value = value;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+
+      function copy(value, button) {
+        var done = function () {
+          toast.classList.add("show");
+          clearTimeout(timer);
+          timer = setTimeout(function () { toast.classList.remove("show"); }, 1500);
+          var label = button && button.querySelector("[data-label]");
+          if (!label) return;
+          var original = label.textContent;
+          label.textContent = "Copied";
+          setTimeout(function () { label.textContent = original; }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(done).catch(function () {
+            fallbackCopy(value);
+            done();
+          });
+        } else {
+          fallbackCopy(value);
+          done();
+        }
+      }
+
+      document.querySelectorAll("[data-copy-ca]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var node = document.querySelector(".js-ca");
+          copy(node ? node.textContent.trim() : "TBA", button);
+        });
+      });
+
+      var video = document.querySelector("video");
+      if (!video) return;
+      video.playbackRate = 0.65;
+      var motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      var apply = function () {
+        if (motion.matches) video.pause();
+        else video.play().catch(function () {});
+      };
+      apply();
+      if (motion.addEventListener) motion.addEventListener("change", apply);
+    })();
+  </script>
+</body>
+</html>
